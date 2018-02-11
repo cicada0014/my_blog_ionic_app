@@ -8,15 +8,21 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { TabsPage } from '../pages/tabs/tabs';
+import { TabsPageModule } from '../pages/tabs/tabs.module';
+import { HttpService } from '../service/http.service';
+import { NgReduxModule, NgRedux } from 'ng2-redux';
+import rootReducer, { AppState } from '../redux/root.reducer';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
   ],
   imports: [
+    TabsPageModule,
     BrowserModule,
+    NgReduxModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -28,7 +34,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    HttpService,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(ngRedux: NgRedux<AppState>) {
+    ngRedux.configureStore(rootReducer, {});
+    // socketService.init();
+  }
+
+}

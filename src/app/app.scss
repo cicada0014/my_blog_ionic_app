@@ -14,3 +14,18 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+
+ion-menu ,ion-nav{
+    @media screen and (min-width: 600px) and (max-width: 998px) {
+        margin-left: 15%;
+        margin-right: 15%;
+        width: 70%;
+    }
+    @media screen and (min-width: 998px)  {
+        margin-left: 25%;
+        margin-right: 25%;
+        width: 50%;
+    }
+}
