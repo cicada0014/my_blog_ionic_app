@@ -1,0 +1,40 @@
+<!-- Generated template for the PostingModalComponent component -->
+
+
+<ion-header>
+  <ion-toolbar>
+    <div class="toolbar-content">
+      <button ion-button clear (click)="cancelPosting()">취소</button>
+      <div class="tooltitle">글쓰기</div>
+      <button ion-button clear *ngIf="contentDatas.length <= 0"> &nbsp; &nbsp;
+      </button>
+      <button ion-button clear *ngIf="contentDatas.length > 0" (click)="uploadPost()"> 저장
+      </button>
+    </div>
+
+
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+
+
+  <div *ngFor="let content of contentDatas">
+    <div [ngSwitch]="content.type">
+        <medium-editor *ngSwitchCase="'basic'" [pageContent]="content.data" ></medium-editor>
+      <!-- <medium-editor *ngSwitchCase="'basic'" [(editorModel)]="content.data" [editorOptions]="{'toolbar': {'buttons': ['bold', 'italic', 'underline', 'h1', 'h2', 'h3']}}"
+        [editorPlaceholder]="'placeholderVar'"></medium-editor> -->
+      <!-- <ion-textarea *ngSwitchCase="'basic'" (keydown)="inputBasicData($event)" type="text" [(ngModel)]="content.data" placeholder="일반"></ion-textarea> -->
+      <ace-editor *ngSwitchCase="'code'" [mode]="'javascript'" #lineEditor class="editor" (textChanged)="onChange($event)" [(text)]="content.data"
+        [options]="editorOptions" [autoUpdateContent]="true" [durationBeforeCallback]="100"></ace-editor>
+      <!-- <img *ngSwitchCase="'image'" [src]="content.data || ''" alt=""> -->
+    </div>
+
+  </div>
+
+
+
+
+
+</ion-content>

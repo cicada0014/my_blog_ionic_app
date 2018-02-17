@@ -13,6 +13,11 @@ import { TabsPageModule } from '../pages/tabs/tabs.module';
 import { HttpService } from '../service/http.service';
 import { NgReduxModule, NgRedux } from 'ng2-redux';
 import rootReducer, { AppState } from '../redux/root.reducer';
+import { ComponentsModule } from '../components/components.module';
+import { PostingPageModule } from '../pages/posting/posting.module';
+import { HTTP } from '@ionic-native/http';
+import { Camera } from '@ionic-native/camera';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -20,6 +25,8 @@ import rootReducer, { AppState } from '../redux/root.reducer';
     ListPage,
   ],
   imports: [
+    PostingPageModule,
+    ComponentsModule,
     TabsPageModule,
     BrowserModule,
     NgReduxModule,
@@ -32,8 +39,10 @@ import rootReducer, { AppState } from '../redux/root.reducer';
     ListPage
   ],
   providers: [
+    Camera,
     StatusBar,
     SplashScreen,
+    HTTP,
     HttpService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]

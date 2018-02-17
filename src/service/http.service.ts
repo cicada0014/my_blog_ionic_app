@@ -13,8 +13,9 @@ export class HttpService {
         }
     )
 
-    constructor(private http: HTTP, ) {
+    private hostUrl = '';
 
+    constructor(private http: HTTP, ) {
 
     }
 
@@ -24,17 +25,17 @@ export class HttpService {
         return {
             get: (param?: Object) => {
                 // this.http.get().
-                return this.http.get(routePath, param, this.headers)
+                return this.http.get(`${this.hostUrl}/${routePath}`, param, this.headers)
 
             },
             post: (body?: Object) => {
-                return this.http.post(routePath, body, this.headers)
+                return this.http.post(`${this.hostUrl}/${routePath}`, body, this.headers)
             },
             patch: (body?: Object) => {
-                return this.http.patch(routePath, body, this.headers)
+                return this.http.patch(`${this.hostUrl}/${routePath}`, body, this.headers)
             },
             delete: () => {
-                return this.http.delete(routePath, {}, this.headers)
+                return this.http.delete(`${this.hostUrl}/${routePath}`, {}, this.headers)
             }
         }
     }

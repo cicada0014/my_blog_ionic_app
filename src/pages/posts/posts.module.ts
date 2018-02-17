@@ -6,7 +6,7 @@ import { ComponentsModule } from '../../components/components.module';
 @NgModule({
   declarations: [
 
-    PostsPage,
+    // PostsPage,
   ],
   imports: [
     IonicPageModule.forChild(PostsPage),

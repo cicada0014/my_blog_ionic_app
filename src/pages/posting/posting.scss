@@ -1,0 +1,25 @@
+page-posting {
+    ion-header{
+        ion-toolbar{
+            .toolbar-content{
+                display: inline-flex;
+                width: 100%;
+                justify-content: space-between;
+                align-items: center;
+                .tooltitle{
+                    font-size: 16px;
+                }
+            }
+            
+            
+        }
+    }
+    ion-content{
+        ion-textarea{
+            textarea{
+                overflow-y: hidden; 
+            }
+        }
+    }
+    
+}

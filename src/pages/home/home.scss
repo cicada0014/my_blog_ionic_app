@@ -1,3 +1,26 @@
 page-home {
-
+    
+    
+    
+    ion-toolbar{
+        .btn-row{
+            width: 100%;
+            display: inline-flex;
+            justify-content: center;
+        }
+    }
+    .custom-tool{
+        width: 100%;
+        display: inline-flex;
+        ion-searchbar{
+            flex: 8
+        }
+        button{
+            padding: 0;
+            flex: 1;
+        }
+        
+    }
+    
 }
+

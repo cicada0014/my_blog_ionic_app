@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
+import { PostingPage } from '../posting/posting';
 
 @Component({
   selector: 'page-home',
@@ -7,7 +8,19 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(
+    public navCtrl: NavController,
+    // public modalCtrl: ModalController
+  ) {
+
+  }
+
+
+  posting() {
+    console.log('start post')
+    this.navCtrl.push(
+      PostingPage, null, { direction: 'switch' })
+    // this.modalCtrl.create(PostingModalComponent, { data: 'ff' }).present()
 
   }
 
