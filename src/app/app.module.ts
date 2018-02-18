@@ -17,7 +17,8 @@ import { ComponentsModule } from '../components/components.module';
 import { PostingPageModule } from '../pages/posting/posting.module';
 import { HTTP } from '@ionic-native/http';
 import { Camera } from '@ionic-native/camera';
-
+import { Keyboard } from '@ionic-native/keyboard';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     MyApp,
@@ -30,6 +31,7 @@ import { Camera } from '@ionic-native/camera';
     TabsPageModule,
     BrowserModule,
     NgReduxModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -39,6 +41,7 @@ import { Camera } from '@ionic-native/camera';
     ListPage
   ],
   providers: [
+    Keyboard,
     Camera,
     StatusBar,
     SplashScreen,

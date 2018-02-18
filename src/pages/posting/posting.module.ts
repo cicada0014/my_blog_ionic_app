@@ -1,18 +1,21 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { PostingPage } from './posting';
-import { AceEditorModule } from 'ng2-ace-editor';
-import { MediumEditorComponent } from '../../components/medium-editor/medium-editor';
+// import { AceEditorModule, AceEditorComponent } from 'ng2-ace-editor';
+import { YtEditorComponent } from '../../components/yt-editor/yt-editor';
 @NgModule({
   declarations: [
     PostingPage,
-    MediumEditorComponent
+    YtEditorComponent
   ],
   exports: [
   ],
   imports: [
     IonicPageModule.forChild(PostingPage),
-    AceEditorModule
+    // AceEditorModule
   ],
+  entryComponents: [
+    // AceEditorComponent
+  ]
 })
 export class PostingPageModule { }

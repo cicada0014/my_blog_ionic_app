@@ -1,0 +1,41 @@
+yt-editor {
+
+
+    .editor-toolbar{
+        display: inline-flex;
+        width: 100%;
+    }
+
+    .content-display{
+        padding: 5px 10px 5px 10px;
+    }
+
+    [contenteditable] {
+        height: 93%;
+        overflow-y: scroll;
+        -webkit-user-select: text;
+        user-select: text;
+        p{
+            padding: 0;
+            margin: 0;
+            // background: skyblue;
+        };
+        border-bottom: midnightblue solid 2px;
+    }
+    // #ace-editor{
+        //     height: 10%;
+        // }
+        #font-size-manager{
+            width: 30%;
+        }
+
+
+
+        .appended-ace-editor{
+            height: 10px;
+        }
+
+
+
+
+    }

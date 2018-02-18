@@ -1,10 +1,11 @@
-import { HTTP } from '@ionic-native/http';
+
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 
 @Injectable()
 export class HttpService {
-    private headers: Headers = new Headers(
+    private headers: HttpHeaders = new HttpHeaders(
         {
             'Content-Type': 'application/json',
             'X-Requested-With': 'XMLHttpRequest',
@@ -15,7 +16,7 @@ export class HttpService {
 
     private hostUrl = '';
 
-    constructor(private http: HTTP, ) {
+    constructor(private http: HttpClient, ) {
 
     }
 
@@ -23,19 +24,28 @@ export class HttpService {
     public sendApi(routePath: string) {
         // 환경 체크는 http 서비스랑 authguard에서만 체크한다.
         return {
-            get: (param?: Object) => {
+            get: (params?: HttpParams) => {
                 // this.http.get().
-                return this.http.get(`${this.hostUrl}/${routePath}`, param, this.headers)
+                return this.http.get(`${this.hostUrl}/${routePath}`, {
+                    headers: this.headers,
+                    params: params,
+                })
 
             },
             post: (body?: Object) => {
-                return this.http.post(`${this.hostUrl}/${routePath}`, body, this.headers)
+                return this.http.post(`${this.hostUrl}/${routePath}`, body, {
+                    headers: this.headers
+                })
             },
             patch: (body?: Object) => {
-                return this.http.patch(`${this.hostUrl}/${routePath}`, body, this.headers)
+                return this.http.patch(`${this.hostUrl}/${routePath}`, body, {
+                    headers: this.headers,
+                })
             },
             delete: () => {
-                return this.http.delete(`${this.hostUrl}/${routePath}`, {}, this.headers)
+                return this.http.delete(`${this.hostUrl}/${routePath}`, {
+                    headers: this.headers,
+                })
             }
         }
     }

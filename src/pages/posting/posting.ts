@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewContainerRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Subject } from 'rxjs/Rx';
 import * as autosize from 'autosize'
 import { HttpService } from '../../service/http.service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { YtEditorComponent } from '../../components/yt-editor/yt-editor';
 
 
 
@@ -22,9 +23,10 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 })
 export class PostingPage {
 
-  public contentDatas: Array<ContentData>
+  public contentDatas: Array<ContentData>;
+  @ViewChild('ytEditor') ytEditor: YtEditorComponent
 
-
+  public postContent: string;
 
 
   public editorOptions: any = {
@@ -33,27 +35,34 @@ export class PostingPage {
     wrap: true,
   };
 
+  private cameraOptions: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE
+  }
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private httpService: HttpService,
-    private camera: Camera
+    private camera: Camera,
+    private vcr: ViewContainerRef
   ) {
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
 
-    this.contentDatas = [
-      { type: 'basic', data: '베이직' },
-      { type: 'code', data: 'console.log("t")' },
-      { type: 'image', data: 'asset.jpg' }
-    ];
 
-    console.log("camera")
-    this.camera.getPicture(options).then((imageData) => {
+    this.postContent = `<p> \u00a0</p>`
+
+    // this.contentDatas = [
+    //   { type: 'basic', data: '베이직' },
+    //   { type: 'code', data: 'console.log("t")' },
+    //   { type: 'image', data: 'asset.jpg' }
+    // ];
+  }
+
+
+  getPicture() {
+    this.camera.getPicture(this.cameraOptions).then((imageData) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
       let base64Image = 'data:image/jpeg;base64,' + imageData;
@@ -63,14 +72,13 @@ export class PostingPage {
 
   }
 
-
-  getPicture() {
-
-  }
-
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PostingPage');
+    setTimeout(() => {
+      this.ytEditor.focusingEditor();
+    }, 10);
+
   }
+
 
 
   inputBasicData($event) {
@@ -81,11 +89,22 @@ export class PostingPage {
 
   }
 
-  async uploadPost() {
-    const result = await this.httpService.sendApi('api/post').post({
-      item: ''
+  uploadPost() {
+    let contentHTML = '';
+    for (let index = 0; index < (<HTMLCollection>this.ytEditor.editBody.nativeElement.children).length; index++) {
+      contentHTML += (<HTMLCollection>this.ytEditor.editBody.nativeElement.children)[`${index}`].outerHTML;
+    }
+    console.log(contentHTML)
+
+
+    this.httpService.sendApi('api/post/posting').post({
+      contents: contentHTML,
+      active: false,
+      extra: null,
+    }).subscribe(result => {
+      console.log(result)
     })
-    console.log(result.data)
+
   }
 
   onChange($event) {
