@@ -7,10 +7,14 @@
 
 
 <ion-content padding>
+  <ion-infinite-scroll #topScroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
   <ion-list>
     <ion-item-sliding *ngFor="let post of posts">
       <ion-item>
-        <h2>Slime2323fdsfsdfr</h2>
+        <h2>{{post.title}} </h2>
+        <!-- 파이프 만들어보자잉 -->
       </ion-item>
       <!-- <ion-item-options side="left">
         <button ion-button color="primary">

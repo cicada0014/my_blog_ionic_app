@@ -5,6 +5,7 @@ import * as autosize from 'autosize'
 import { HttpService } from '../../service/http.service';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { YtEditorComponent } from '../../components/yt-editor/yt-editor';
+import { ToastService } from '../../service/toast.service';
 
 
 
@@ -27,7 +28,7 @@ export class PostingPage {
   @ViewChild('ytEditor') ytEditor: YtEditorComponent
 
   public postContent: string;
-
+  public title: string;
 
   public editorOptions: any = {
     maxLines: 1000,
@@ -43,6 +44,7 @@ export class PostingPage {
   }
 
   constructor(
+    private toastService: ToastService,
     public navCtrl: NavController,
     public navParams: NavParams,
     private httpService: HttpService,
@@ -90,20 +92,33 @@ export class PostingPage {
   }
 
   uploadPost() {
+    if (!this.title) {
+      this.toastService.presentToast('제목을 입력해주세요', 'middle')
+      return
+    }
+
     let contentHTML = '';
     for (let index = 0; index < (<HTMLCollection>this.ytEditor.editBody.nativeElement.children).length; index++) {
       contentHTML += (<HTMLCollection>this.ytEditor.editBody.nativeElement.children)[`${index}`].outerHTML;
     }
-    console.log(contentHTML)
 
-
-    this.httpService.sendApi('api/post/posting').post({
+    this.httpService.sendDataToFirebase(JSON.stringify({
+      title: this.title,
       contents: contentHTML,
       active: false,
       extra: null,
-    }).subscribe(result => {
-      console.log(result)
+    })).subscribe(data => {
+      console.log(data)
     })
+
+    // this.httpService.sendApi('api/post/posting').post({
+    //   title: this.title,
+    //   contents: contentHTML,
+    //   active: false,
+    //   extra: null,
+    // }).subscribe(result => {
+    //   console.log(result)
+    // })
 
   }
 

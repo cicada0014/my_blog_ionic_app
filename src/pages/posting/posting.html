@@ -19,7 +19,10 @@
 <ion-content>
 
 
-
+  <ion-item>
+    <ion-label color="primary">제목</ion-label>
+    <ion-input placeholder="제목" [(ngModel)]="title" ></ion-input>
+  </ion-item>
   <yt-editor #ytEditor [data]="postContent"></yt-editor>
   <!-- <div ace-editor [mode]="'typescript'" #lineEditor class="editor" (textChanged)="onChange($event)" [options]="editorOptions"
     [autoUpdateContent]="true" [durationBeforeCallback]="100"></div> -->

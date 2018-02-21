@@ -5,6 +5,14 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+//Firebase Module
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+
+//Firebase Config
+import { FIREBASE_CONFIG } from './app.firebase.config';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,6 +27,7 @@ import { HTTP } from '@ionic-native/http';
 import { Camera } from '@ionic-native/camera';
 import { Keyboard } from '@ionic-native/keyboard';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastService } from '../service/toast.service';
 @NgModule({
   declarations: [
     MyApp,
@@ -32,6 +41,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     NgReduxModule,
     HttpClientModule,
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -47,6 +59,7 @@ import { HttpClientModule } from '@angular/common/http';
     SplashScreen,
     HTTP,
     HttpService,
+    ToastService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

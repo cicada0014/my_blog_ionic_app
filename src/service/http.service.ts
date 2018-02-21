@@ -21,6 +21,20 @@ export class HttpService {
     }
 
 
+    public getDataFromFirebase() {
+        return this.http.get('https://myblog-7a4cc.firebaseio.com/posts.json', {
+            headers: this.headers
+        })
+    }
+
+    public sendDataToFirebase(body) {
+        return this.http.post('https://myblog-7a4cc.firebaseio.com/posts.json', body, {
+            headers: this.headers
+        })
+
+    }
+
+
     public sendApi(routePath: string) {
         // 환경 체크는 http 서비스랑 authguard에서만 체크한다.
         return {
